@@ -356,7 +356,7 @@ function preloadAssets() {
     });
     
     // BGM audio
-    bgmAudio = new Audio('audio/Bgm.mp3');
+    bgmAudio = new Audio('Bgm.mp3');
     bgmAudio.loop = false;
     bgmAudio.volume = 0.7;
     bgmAudio.preload = 'metadata';
@@ -599,5 +599,6 @@ window.addEventListener('beforeunload', function() {
 window.showPage = showPage;
 window.startImageSequence = startImageSequence;
 window.optimizeForMobile = optimizeForMobile;
+
 
 console.log('script.js loaded successfully!');
