@@ -4,573 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feel • 2026</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background: #0f0f14;
-            color: white;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Floating Hearts Background */
-        .hearts-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .heart {
-            position: absolute;
-            font-size: 20px;
-            opacity: 0.1;
-            filter: blur(0.5px);
-            animation: floatHeart 20s linear infinite;
-        }
-
-        @keyframes floatHeart {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.15;
-            }
-            90% {
-                opacity: 0.15;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Music Button */
-        .music-btn {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
-            padding: 8px 15px;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Sections */
-        .page {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            display: none;
-            flex-direction: column;
-        }
-
-        .page.active {
-            display: flex;
-        }
-
-        /* Popup Page */
-        .popup-page {
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .popup-page h1 {
-            font-size: 24px;
-            margin-bottom: 40px;
-        }
-
-        /* Poetry Pages */
-        .poetry-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 10px;
-            text-align: center;
-            line-height: 1.8;
-            font-size: 16px;
-        }
-
-        .poetry-content p {
-            margin-bottom: 15px;
-        }
-
-        .poetry-content p:hover {
-            color: #ffeaa7;
-        }
-
-        /* Buttons */
-        .next-btn {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 16px;
-            margin: 20px auto;
-            cursor: pointer;
-            display: block;
-            min-width: 180px;
-        }
-
-        /* Video Pages */
-        .video-page {
-            justify-content: center;
-            align-items: center;
-        }
-
-        video {
-            width: 90%;
-            max-width: 350px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        /* Soo Button - ALWAYS VISIBLE */
-        .soo-btn {
-            background: linear-gradient(45deg, #ff6b9d, #ff8fab);
-            display: block; /* Changed from 'none' to 'block' */
-            margin-top: 20px;
-        }
-
-        /* Final Wish Page - NORMAL BACKGROUND */
-        .final-page {
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            /* Removed pink gradient background */
-        }
-
-        .final-page h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #ffebee; /* Keep pinkish text color */
-        }
-
-        .final-page h2 {
-            font-size: 20px;
-            color: #ffcdd2; /* Keep pinkish text color */
-            font-weight: normal;
-        }
-
-        /* Marwadi Section */
-        .marwadi-box {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 30px 0;
-            font-style: italic;
-            font-size: 18px;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Floating Hearts -->
+    <!-- Paper texture overlay -->
+    <div class="paper-texture"></div>
+
+    <!-- Floral corner decorations -->
+    <div class="floral-corner floral-top-left">❀❀❀❀❀</div>
+    <div class="floral-corner floral-top-right">❀❀❀❀❀</div>
+    <div class="floral-corner floral-bottom-left">❀❀❀❀❀</div>
+    <div class="floral-corner floral-bottom-right">❀❀❀❀❀</div>
+
+    <!-- GLOWING & FLICKERING Floating Hearts -->
     <div class="hearts-bg" id="heartsBg"></div>
 
     <!-- Music Button -->
     <div class="music-btn" id="musicBtn">
-        <span id="musicIcon">▶️</span>
+        <span id="musicIcon">🎵</span>
         <span id="musicText">Play Music</span>
     </div>
 
     <!-- Page 1: Popup -->
-    <div class="page popup-page active" id="page1">
+    <div class="page stationery-page popup-page active" id="page1">
+        <div class="page-number">I</div>
+        <div class="wax-seal">2026</div>
         <h1>Come, let's see something... ✨</h1>
         <button class="next-btn" onclick="showPage('page2')">Let's See</button>
     </div>
 
     <!-- Page 2: English Poetry -->
-    <div class="page" id="page2">
+    <div class="page stationery-page" id="page2">
+        <div class="page-number">II</div>
+        <div class="wax-seal">My Love</div>
         <div class="poetry-content">
-            <p>I miss you in ways that don't announce themselves 💭,</p>
-            <p>in ways that live quietly inside my chest</p>
-            <p>and show up only when the lights are off 🌙</p>
-            <p>and the world finally stops asking me to be strong.</p>
-            <p>Every night, I sleep with my pillow</p>
-            <p>the way someone sleeps with a memory 🛏️🤍,</p>
-            <p>holding it close, pretending it can hear me</p>
-            <p>when I whisper the things I never said out loud.</p>
-            <p>I talk to myself in the dark, softly, carefully,</p>
-            <p>like I'm afraid the night might overhear—</p>
-            <p>did you eat today 🍽️, are you okay 🫶,</p>
-            <p>how was your day, is my baby fine—</p>
-            <p>and even without answers, my heart refuses to stop caring 💗.</p>
-            <p>Some habits don't disappear just because silence arrives.</p>
-            <p>When I close my eyes, I don't see emptiness 😌.</p>
-            <p>I see you. Every single time.</p>
-            <p>As if my mind has chosen you as its safest place 🫂.</p>
-            <p>And it always takes me back to that same night—</p>
-            <p>December 17th, 2025, around 10:30 🕰️—</p>
-            <p>when after four long years, my hand finally found yours again 🤝.</p>
-            <p>It felt unreal, like time folded in on itself</p>
-            <p>just to give me that moment ✨.</p>
-            <p>I remember thinking how strange it was</p>
-            <p>that something so small, so simple,</p>
-            <p>could undo years of distance without saying a single word.</p>
-            <p>Your hands felt rough, and I noticed it instantly.</p>
-            <p>I know why they are like that.</p>
-            <p>You carry responsibility quietly,</p>
-            <p>you do your housework without complaint,</p>
-            <p>you give more than you talk about.</p>
-            <p>Take care, bacha 🥺🤍.</p>
-            <p>But listen to me when I say this—</p>
-            <p>I would choose those hands every time.</p>
-            <p>Rough or not, tired or worn,</p>
-            <p>I would still want them on my cheeks and on my back 🫂,</p>
-            <p>because they carry effort, honesty,</p>
-            <p>and a life you've been building on your own.</p>
-            <p>Some hands aren't meant to be soft;</p>
-            <p>they're meant to be real ✋💫.</p>
-            <p>I will never forget that smile on your face 😊</p>
-            <p>when my hands were on your cheeks,</p>
-            <p>the way you softened as I pampered you,</p>
-            <p>as if for a moment you allowed yourself to feel safe 🕊️.</p>
-            <p>That smile didn't belong to fear;</p>
-            <p>it belonged to familiarity, to comfort,</p>
-            <p>to something that still knew how to feel warm 💞.</p>
-            <p>I remember the forehead kiss too 💋—</p>
-            <p>your face caught between guilt and happiness,</p>
-            <p>like your heart was arguing with itself.</p>
-            <p>You felt guilty for feeling good,</p>
-            <p>guilty for wanting something you were scared of.</p>
-            <p>Don't worry 🤍.</p>
-            <p>Nothing was wrong.</p>
-            <p>Some moments are not mistakes; they're reminders.</p>
-            <p>I love you in a way that never tried to rush you,</p>
-            <p>never demanded clarity,</p>
-            <p>never forced the future to arrive early 🌱.</p>
-            <p>I wanted to hug you not just to feel you,</p>
-            <p>but to protect you from the parts of life</p>
-            <p>that taught you to be afraid of attachment 🫶.</p>
-            <p>I know your past made love feel unsafe,</p>
-            <p>like something that takes more than it gives.</p>
-            <p>And I know that's why you walked away—</p>
-            <p>not because love was missing,</p>
-            <p>but because staying felt wrong to you at that moment 💔➡️🤍.</p>
-            <p>I understand that you weren't unsure about me—</p>
-            <p>you were unsure about yourself,</p>
-            <p>about what you want,</p>
-            <p>about whether your heart is ready to choose again without fear 🥺.</p>
-            <p>I know hurting me was the one thing you never wanted to do,</p>
-            <p>and that distance felt kinder than trying</p>
-            <p>when everything inside you felt confused.</p>
-            <p>I understand why silence became necessary,</p>
-            <p>why blocking was the only way you could protect both of us</p>
-            <p>from emotions you couldn't resist 🙃.</p>
-            <p>I don't hold that against you.</p>
-            <p>I carry gratitude instead—</p>
-            <p>for the love you gave honestly 💗,</p>
-            <p>for the truth you spoke gently,</p>
-            <p>and for choosing kindness even while walking away 🤍.</p>
-            <p>I am waiting, yes—but not frozen, not stuck in the same place 🕰️.</p>
-            <p>I am growing, learning, becoming calmer, becoming better 🌿,</p>
-            <p>with the same sincerity I had the first day we met.</p>
-            <p>I haven't changed in the ways that matter.</p>
-            <p>The care is the same.</p>
-            <p>The respect is the same.</p>
-            <p>The patience never left.</p>
-            <p>I am still the same person</p>
-            <p>who chose you without conditions and stayed without resentment 🤍.</p>
-            <p>As this new year begins ✨,</p>
-            <p>I don't ask for answers or promises.</p>
-            <p>I only wish that you focus on your studies 📚,</p>
-            <p>on becoming the CA you're working so hard to be 🌟.</p>
-            <p>Don't get distracted.</p>
-            <p>Stay patient with yourself 🕊️.</p>
-            <p>Build your future with belief,</p>
-            <p>even on the days when it feels heavy.</p>
-            <p>Trust that what is meant for you will arrive in its own time ⏳,</p>
-            <p>exactly when you're ready to receive it.</p>
-            <p>And if life ever feels overwhelming,</p>
-            <p>if doubt ever finds you late at night 🌙,</p>
-            <p>remember this quietly—somewhere, without pressure,</p>
-            <p>without expectations, without conditions, I am still here 🤍.</p>
-            <p>Loving you the same way.</p>
-            <p>Remembering you the same way.</p>
-            <p>Holding space for you, just as you are 🫂.</p>
-            <p>Happy New Year, 2026 🎆✨</p>
-            <p>May this year be gentle with you 🤍,</p>
-            <p>keep you focused 🎯,</p>
-            <p>teach you patience 🌸,</p>
-            <p>and help you trust God's plan 🙏—</p>
-            <p>even when the path doesn't make sense yet.</p>
+            <!-- Poetry loads from script.js -->
         </div>
         <button class="next-btn" onclick="showPage('page3')">Let's See in My Language</button>
     </div>
 
     <!-- Page 3: Gujarati Poetry -->
-    <div class="page" id="page3">
+    <div class="page stationery-page" id="page3">
+        <div class="page-number">III</div>
+        <div class="wax-seal">મારી પ્રીત</div>
         <div class="poetry-content">
-            <p>કેટલીક યાદો અવાજ નથી કરતી,</p>
-            <p>પણ દિલમાં સતત રહેતી હોય છે 💭.</p>
-            <p>હું તને યાદ કરું છું ત્યારે કોઈ ફરિયાદ નથી,</p>
-            <p>ફક્ત એક શાંત લાગણી છે</p>
-            <p>જે રાત્રે વધુ જીવંત બની જાય છે 🌙.</p>
-            <p>તકીયાને નજીક ખેંચી ને સૂઈ જાઉં છું,</p>
-            <p>જાણે એમાં તારી હાજરી સચવાયેલી હોય 🛏️🤍,</p>
-            <p>અને મનમાં જ મનમાં પૂછું છું—</p>
-            <p>આજે તું ઠીક હશે ને 🫶,</p>
-            <p>ભોજન કર્યું હશે ને 🍽️,</p>
-            <p>તારો દિવસ ભારેલો તો નહીં ગયો હશે,</p>
-            <p>મારી બચ્ચી સુરક્ષિત તો હશે ને 💗.</p>
-            <p>જવાબ નથી મળતા,</p>
-            <p>પણ પ્રશ્નો પૂછવામાં પણ એક સુકું સુખ હોય છે.</p>
-            <p>આંખો બંધ કરું છું ત્યારે ખાલીપો નથી આવતો 😌.</p>
-            <p>દર વખતે તું જ સામે આવી જાય છે 🫂.</p>
-            <p>અને મન અચૂક એ જ રાત્રે અટકી જાય છે—</p>
-            <p>17 ડિસેમ્બર 2025,</p>
-            <p>રાત્રે આશરે 10:30 🕰️.</p>
-            <p>ચાર વર્ષ પછી ફરી તારો હાથ પકડી શક્યો 🤝,</p>
-            <p>એ ક્ષણમાં કોઈ વચન નહોતું,</p>
-            <p>કોઈ ભવિષ્યની વાત નહોતી,</p>
-            <p>ફક્ત એક સાચો સ્પર્શ હતો ✨</p>
-            <p>જે બધું કહી ગયો.</p>
-            <p>તારા હાથ થોડા ખડખડિયા લાગ્યા,</p>
-            <p>અને મને એ તરત સમજાઈ ગયું.</p>
-            <p>તું કેટલું બધું એકલી સંભાળે છે—</p>
-            <p>ઘર, જવાબદારીઓ, રોજિંદી થાક.</p>
-            <p>ધ્યાન રાખજે બચ્ચી 🥺🤍.</p>
-            <p>પણ સાચું કહું?</p>
-            <p>એ હાથ ખડખડિયા હોવા છતાં</p>
-            <p>જ્યારે મારા ગાલ પર આવ્યા,</p>
-            <p>જ્યારે મારી પીઠ પાછળ ઠર્યા,</p>
-            <p>ત્યારે એ દુનિયાની સૌથી સાચી નરમાઈ લાગ્યા 🫂✨.</p>
-            <p>કેટલીક નરમાઈ સ્પર્શમાં નથી,</p>
-            <p>ઈમાનદારીમાં હોય છે.</p>
-            <p>મને આજે પણ યાદ છે</p>
-            <p>જ્યારે મેં તારા ગાલ પર હાથ ફેરવ્યા,</p>
-            <p>અને તું થોડી ક્ષણ માટે</p>
-            <p>બધી ચિંતા ભૂલી ગઈ 😊.</p>
-            <p>એ સ્મિત ડરનું નહોતું,</p>
-            <p>એ ઓળખાણનું હતું,</p>
-            <p>એ આરામનું હતું 💞.</p>
-            <p>અને એ માથા પરનું ચુંબન 💋—</p>
-            <p>તારા ચહેરા પર ગિલ્ટ પણ હતી,</p>
-            <p>અને ખુશી પણ.</p>
-            <p>જાણે દિલ પોતે જ પોતાને સમજાવી રહ્યું હોય.</p>
-            <p>ચિંતા ના કર.</p>
-            <p>કંઈ ખોટું નહોતું.</p>
-            <p>કેટલીક ક્ષણો પ્રશ્ન નથી માગતી,</p>
-            <p>ફક્ત સ્વીકાર માંગે છે 🤍.</p>
-            <p>મારું પ્રેમ ક્યારેય ઉતાવળમાં નહોતું 🌱.</p>
-            <p>મેં તને ક્યારેય નિર્ણય માટે દબાવી નથી,</p>
-            <p>ક્યારેય "હમણાં જ" કહી નથી.</p>
-            <p>મને ખબર છે</p>
-            <p>તારા ભૂતકાળે તને સાવચેત બનાવી છે,</p>
-            <p>જોડાણ તને ડરાવતું લાગતું થયું છે 🥺.</p>
-            <p>તું જે રીતે છે,</p>
-            <p>એ રીતે સમજવાનો પ્રયત્ન</p>
-            <p>હું હંમેશા કરતો રહ્યો છું.</p>
-            <p>હું રાહ જોઈ રહ્યો છું,</p>
-            <p>પણ અટકી નથી ગયો 🕰️.</p>
-            <p>હું આગળ વધું છું,</p>
-            <p>વધુ સમજદાર બનીને,</p>
-            <p>વધુ શાંત બનીને 🌿.</p>
-            <p>જે દિવસે તું મને પહેલીવાર મળી હતી,</p>
-            <p>એ જ માણસ આજે પણ અહીં છે.</p>
-            <p>આદર બદલાયો નથી.</p>
-            <p>ધીરજ ખૂટી નથી.</p>
-            <p>ભાવના ડરી નથી.</p>
-            <p>આ નવું વર્ષ શરૂ થાય છે ✨,</p>
-            <p>અને હું કોઈ જવાબ નથી માગતો.</p>
-            <p>મારી એક જ ઈચ્છા છે—</p>
-            <p>તું તારા અભ્યાસ પર ધ્યાન રાખજે 📚,</p>
-            <p>તું જે CA બનવા માટે મહેનત કરી રહી છે</p>
-            <p>એ રસ્તે વિશ્વાસ રાખજે 🌟.</p>
-            <p>ધ્યાન ભટકાવશો નહીં.</p>
-            <p>ધીરજ રાખજે 🕊️.</p>
-            <p>અને ભગવાનની યોજના પર વિશ્વાસ રાખજે 🙏,</p>
-            <p>ભલે અત્યારે બધું સ્પષ્ટ ન લાગતું હોય.</p>
-            <p>અને જો ક્યારેક રાતે મન ભારેલું લાગે 🌙,</p>
-            <p>તો આ યાદ રાખજે—</p>
-            <p>કોઈ શોર વગર,</p>
-            <p>કોઈ અપેક્ષા વગર,</p>
-            <p>કોઈ શરત વગર,</p>
-            <p>હું હજુ પણ અહીં જ છું 🤍.</p>
-            <p>એ જ રીતે યાદ કરતા,</p>
-            <p>એ જ રીતે ચિંતા કરતા,</p>
-            <p>અને તને જેવી છે એવી જ સ્વીકારતા 🫂.</p>
-            <p>નવું વર્ષ 2026 મુબારક 🎆✨</p>
-            <p>આ વર્ષ તારા માટે નરમ રહે 🤍,</p>
-            <p>તને કેન્દ્રિત રાખે 🎯,</p>
-            <p>તને ધીરજ શીખવે 🌸,</p>
-            <p>અને ભગવાનની યોજના પર વિશ્વાસ અપાવે—</p>
-            <p>જ્યાં સુધી બધું સમજાઈ ન જાય ત્યાં સુધી પણ 🙏.</p>
-            
-            <!-- Marwadi Lines -->
-            <div class="marwadi-box">
-                <p>म्हारो मन तन्हा रात मा, तेरो याद आवे,</p>
-                <p>चुपचाप, बिना शब्द के, दिल धड़कन सुनावे।</p>
-            </div>
+            <!-- Poetry loads from script.js -->
         </div>
         <button class="next-btn" onclick="showPage('page4')">Feeling Right Now</button>
     </div>
 
     <!-- Page 4: Video 1 -->
     <div class="page video-page" id="page4">
-        <video id="video1" controls>
-           <source src="video1.mp4" type="video/mp4">
+        <div class="page-number">IV</div>
+        <video id="video1" controls preload="metadata" loading="lazy">
+            <source src="video1.mp4" type="video/mp4">
         </video>
         <button class="next-btn" onclick="showPage('page5')">Next</button>
     </div>
 
     <!-- Page 5: Video 2 -->
     <div class="page video-page" id="page5">
-        <video id="video2" controls>
-           <source src="video2.mp4" type="video/mp4">
+        <div class="page-number">V</div>
+        <video id="video2" controls preload="metadata" loading="lazy">
+            <source src="video2.mp4" type="video/mp4">
         </video>
-        <!-- Soo Button - ALWAYS VISIBLE FROM START -->
-        <button class="next-btn soo-btn" onclick="showPage('page6')">Soo...</button>
+        <button class="next-btn" onclick="startImageSequence()">Let's Feel</button>
     </div>
 
-    <!-- Page 6: Final Wish - NORMAL BACKGROUND -->
-    <div class="page final-page" id="page6">
+    <!-- Page 6: Image 1 -->
+    <div class="page image-page" id="page6">
+        <div class="page-number">VI</div>
+        <div class="image-container">
+            <img src="image1.jpg" alt="Image 1" id="img1" loading="lazy" decoding="async">
+        </div>
+        <button class="timer-btn" id="timerBtn1" onclick="showPage('page7')" disabled>
+            Wait... (9)
+        </button>
+    </div>
+
+    <!-- Page 7: Image 2 -->
+    <div class="page image-page" id="page7">
+        <div class="page-number">VII</div>
+        <div class="image-container">
+            <img src="image2.jpg" alt="Image 2" id="img2" loading="lazy" decoding="async">
+        </div>
+        <button class="timer-btn" id="timerBtn2" onclick="showPage('page8')" disabled>
+            Wait... (7)
+        </button>
+    </div>
+
+    <!-- Page 8: Image 3 -->
+    <div class="page image-page" id="page8">
+        <div class="page-number">VIII</div>
+        <div class="image-container">
+            <img src="image3.jpg" alt="Image 3" id="img3" loading="lazy" decoding="async">
+        </div>
+        <button class="timer-btn" id="timerBtn3" onclick="showPage('page9')" disabled>
+            Soo...
+        </button>
+    </div>
+
+    <!-- Page 9: Final Wish -->
+    <div class="page final-page" id="page9">
+        <div class="page-number">IX</div>
         <h1>Wishing you the happiest New Year<br>My Princess 👑💝</h1>
         <h2>May 2026 bring you all the love,<br>success and peace you deserve & Meet me soon i miss my cubby cheeks 🥺🫂 ✨</h2>
+        <div class="final-message">
+            As long as I exist, ! you will be loved. ❤️🤍✨
+        </div>
     </div>
 
     <!-- Background Music -->
-    <audio id="bgMusic" loop>
-       <source src="Dhun%20Laagi.mp3" type="audio/mp3">
+    <audio id="bgMusic" loop preload="metadata">
+        <source src="Dhun%20Laagi.mp3" type="audio/mp3">
     </audio>
 
-    <script>
-        // Create floating hearts
-        function createHearts() {
-            const container = document.getElementById('heartsBg');
-            const hearts = ['❤️', '💖', '💗', '💓', '💞', '💕'];
-            
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-                
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = (15 + Math.random() * 20) + 'px';
-                heart.style.animationDuration = (15 + Math.random() * 20) + 's';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                
-                container.appendChild(heart);
-            }
-        }
-
-        // Page navigation
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Handle video autoplay
-            if (pageId === 'page4') {
-                setTimeout(() => {
-                    document.getElementById('video1').play();
-                }, 300);
-            }
-            if (pageId === 'page5') {
-                setTimeout(() => {
-                    document.getElementById('video2').play();
-                }, 300);
-            }
-        }
-
-        // Music control
-        const musicBtn = document.getElementById('musicBtn');
-        const musicIcon = document.getElementById('musicIcon');
-        const musicText = document.getElementById('musicText');
-        const bgMusic = document.getElementById('bgMusic');
-        
-        let isPlaying = false;
-        
-        musicBtn.addEventListener('click', function() {
-            if (isPlaying) {
-                bgMusic.pause();
-                musicIcon.textContent = '▶️';
-                musicText.textContent = 'Play Music';
-            } else {
-                bgMusic.play();
-                musicIcon.textContent = '⏸️';
-                musicText.textContent = 'Pause Music';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        // Auto-play music on first click
-        document.addEventListener('click', function initMusic() {
-            if (!isPlaying) {
-                bgMusic.play().then(() => {
-                    musicIcon.textContent = '⏸️';
-                    musicText.textContent = 'Pause Music';
-                    isPlaying = true;
-                });
-            }
-            document.removeEventListener('click', initMusic);
-        });
-
-        // Click flowers animation
-        document.addEventListener('click', function(e) {
-            const flowers = ['🌸', '🌷', '💮', '🌺'];
-            
-            for (let i = 0; i < 3; i++) {
-                const flower = document.createElement('div');
-                flower.style.position = 'fixed';
-                flower.style.left = e.clientX + 'px';
-                flower.style.top = e.clientY + 'px';
-                flower.style.fontSize = '20px';
-                flower.style.pointerEvents = 'none';
-                flower.style.zIndex = '9999';
-                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-                
-                // Animation
-                flower.style.animation = `floatUp 3s forwards`;
-                flower.style.setProperty('--x', (Math.random() * 60 - 30) + 'px');
-                
-                document.body.appendChild(flower);
-                
-                setTimeout(() => flower.remove(), 3000);
-            }
-        });
-
-        // Keyframe for flower animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes floatUp {
-                to {
-                    transform: translateY(-100px) translateX(var(--x));
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Initialize
-        createHearts();
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
-
