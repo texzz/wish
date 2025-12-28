@@ -1,0 +1,945 @@
+/* style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    height: 100%;
+}
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background-color: #fff9fb; /* Very light pink */
+    color: #5a4a42; /* Soft brown for text */
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 240, 245, 0.8) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 240, 245, 0.6) 0%, transparent 20%);
+}
+
+/* Vintage paper texture overlay */
+.paper-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23f2d1dc' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Floral corner decorations */
+.floral-corner {
+    position: fixed;
+    width: 180px;
+    height: 180px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.4;
+    font-size: 24px;
+    color: #e9c6d3;
+}
+
+.floral-top-left {
+    top: -40px;
+    left: -40px;
+    transform: rotate(0deg);
+}
+
+.floral-top-right {
+    top: -40px;
+    right: -40px;
+    transform: rotate(90deg);
+}
+
+.floral-bottom-left {
+    bottom: -40px;
+    left: -40px;
+    transform: rotate(270deg);
+}
+
+.floral-bottom-right {
+    bottom: -40px;
+    right: -40px;
+    transform: rotate(180deg);
+}
+
+/* GLOWING & FLICKERING Floating Hearts */
+.hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px; /* Reduced for better performance */
+    opacity: 0;
+    filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.7));
+    animation: floatHeart 25s linear infinite, glowFlicker 3s ease-in-out infinite;
+    text-shadow: 
+        0 0 8px rgba(255, 182, 193, 0.9),
+        0 0 16px rgba(255, 105, 180, 0.7),
+        0 0 24px rgba(255, 20, 147, 0.5);
+    will-change: transform, opacity; /* Performance optimization */
+    transform: translateZ(0); /* GPU acceleration */
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(110vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+@keyframes glowFlicker {
+    0%, 100% {
+        filter: drop-shadow(0 0 6px rgba(255, 105, 180, 0.8));
+        text-shadow: 
+            0 0 10px rgba(255, 182, 193, 1),
+            0 0 18px rgba(255, 105, 180, 0.8),
+            0 0 26px rgba(255, 20, 147, 0.6);
+    }
+    50% {
+        filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.9));
+        text-shadow: 
+            0 0 14px rgba(255, 182, 193, 1),
+            0 0 24px rgba(255, 105, 180, 0.9),
+            0 0 32px rgba(255, 20, 147, 0.7);
+    }
+}
+
+/* Music Button - Vintage Style */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(248, 231, 238, 0.9);
+    border: 2px solid #e9c6d3;
+    border-radius: 30px;
+    padding: 10px 20px;
+    color: #8b5d6a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    font-size: 16px;
+    font-family: 'Dancing Script', cursive;
+    box-shadow: 0 4px 12px rgba(139, 93, 106, 0.15);
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    background: rgba(255, 240, 245, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(139, 93, 106, 0.2);
+}
+
+/* Sections */
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    display: none;
+    flex-direction: column;
+    z-index: 5;
+    will-change: transform, opacity; /* Performance optimization */
+    backface-visibility: hidden; /* Prevent flickering */
+}
+
+.page.active {
+    display: flex;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Stationery-style pages */
+.stationery-page {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.85);
+    border: 15px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M20,20 L80,20 L80,80 L20,80 Z' fill='none' stroke='%23f2d1dc' stroke-width='4' stroke-dasharray='8,8'/%3E%3C/svg%3E") 30 stretch;
+    box-shadow: 
+        0 10px 30px rgba(242, 209, 220, 0.3),
+        inset 0 0 30px rgba(242, 209, 220, 0.1);
+}
+
+/* Popup Page */
+.popup-page h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 42px;
+    margin-bottom: 50px;
+    color: #b76e79; /* Rose gold */
+    text-shadow: 2px 2px 4px rgba(183, 110, 121, 0.1);
+    font-weight: 700;
+}
+
+/* Poetry Pages - Handwritten letter style */
+.poetry-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px 20px;
+    text-align: center;
+    line-height: 2;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.95);
+    margin: 10px;
+    border: 1px solid #f2d1dc;
+    border-radius: 0;
+    box-shadow: 5px 5px 15px rgba(242, 209, 220, 0.2);
+    font-family: 'Cormorant Garamond', serif;
+    max-height: 75vh;
+    position: relative;
+    transform: translateZ(0); /* GPU acceleration for scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+}
+
+.poetry-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #f2d1dc, transparent);
+}
+
+.poetry-content p {
+    margin-bottom: 20px;
+    padding: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.poetry-content p:hover {
+    color: #8b5d6a;
+    background: rgba(242, 209, 220, 0.1);
+    padding-left: 15px;
+}
+
+/* Buttons - Vintage Style */
+.next-btn {
+    background: #f8e7ee;
+    color: #8b5d6a;
+    border: 2px solid #e9c6d3;
+    padding: 14px 35px;
+    border-radius: 30px;
+    font-size: 18px;
+    margin: 25px auto;
+    cursor: pointer;
+    display: block;
+    min-width: 200px;
+    transition: all 0.3s ease;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(139, 93, 106, 0.15);
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0); /* GPU acceleration */
+}
+
+.next-btn:hover {
+    background: #fff0f5;
+    transform: translateY(-3px) translateZ(0);
+    box-shadow: 0 6px 12px rgba(139, 93, 106, 0.25);
+}
+
+.next-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Video Pages */
+.video-page {
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+video {
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 8px solid #f2d1dc;
+    box-shadow: 0 10px 25px rgba(139, 93, 106, 0.2);
+}
+
+/* Timer Button */
+.timer-btn {
+    background: rgba(248, 231, 238, 0.9);
+    color: #8b5d6a;
+    border: 2px solid #e9c6d3;
+    padding: 14px 35px;
+    border-radius: 30px;
+    font-size: 18px;
+    margin: 25px auto;
+    cursor: pointer;
+    display: block;
+    min-width: 220px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(139, 93, 106, 0.15);
+    transition: all 0.3s ease;
+    transform: translateZ(0); /* GPU acceleration */
+}
+
+.timer-btn:hover:not(:disabled) {
+    background: #fff0f5;
+    transform: translateY(-3px) translateZ(0);
+    box-shadow: 0 6px 12px rgba(139, 93, 106, 0.25);
+}
+
+.timer-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Image Pages */
+.image-page {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.image-container {
+    max-width: 90%;
+    max-height: 70vh;
+    margin: 25px 0;
+    border: 12px solid #f2d1dc;
+    border-radius: 4px;
+    box-shadow: 0 12px 30px rgba(139, 93, 106, 0.25);
+    background: white;
+    padding: 8px;
+    position: relative;
+}
+
+.image-container::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border: 1px dashed #e9c6d3;
+    pointer-events: none;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Final Wish Page */
+.final-page {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.final-page h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 48px;
+    margin-bottom: 30px;
+    color: #b76e79;
+    text-shadow: 2px 2px 4px rgba(183, 110, 121, 0.1);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.final-page h2 {
+    font-size: 26px;
+    color: #8b5d6a;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.final-message {
+    font-size: 28px;
+    color: #b76e79;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(248, 231, 238, 0.7);
+    border-radius: 10px;
+    border: 2px dashed #e9c6d3;
+    animation: gentlePulse 4s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; }
+}
+
+/* Marwadi Section */
+.marwadi-box {
+    background: rgba(248, 231, 238, 0.7);
+    padding: 25px;
+    border-radius: 8px;
+    margin: 35px 0;
+    font-style: italic;
+    font-size: 20px;
+    color: #8b5d6a;
+    border: 1px solid #e9c6d3;
+    font-family: 'Cormorant Garamond', serif;
+    position: relative;
+}
+
+.marwadi-box::before, .marwadi-box::after {
+    content: "❀";
+    position: absolute;
+    color: #e9c6d3;
+    font-size: 24px;
+}
+
+.marwadi-box::before {
+    top: -12px;
+    left: 15px;
+}
+
+.marwadi-box::after {
+    bottom: -12px;
+    right: 15px;
+}
+
+/* Page numbers - vintage style */
+.page-number {
+    position: absolute;
+    bottom: 25px;
+    right: 30px;
+    color: #e9c6d3;
+    font-size: 18px;
+    font-style: italic;
+    font-family: 'Dancing Script', cursive;
+    z-index: 10;
+}
+
+/* Flower animation on click */
+.flower-click {
+    position: fixed;
+    font-size: 20px; /* Reduced for performance */
+    pointer-events: none;
+    z-index: 9999;
+    animation: flowerFloat 2.5s forwards;
+    filter: drop-shadow(0 0 2px rgba(255, 182, 193, 0.7));
+    will-change: transform, opacity; /* Performance optimization */
+}
+
+@keyframes flowerFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) translateX(var(--x)) rotate(var(--rotate));
+    }
+}
+
+/* Scrollbar styling */
+.poetry-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.poetry-content::-webkit-scrollbar-track {
+    background: rgba(242, 209, 220, 0.2);
+}
+
+.poetry-content::-webkit-scrollbar-thumb {
+    background: #e9c6d3;
+    border-radius: 4px;
+}
+
+.poetry-content::-webkit-scrollbar-thumb:hover {
+    background: #d8b4c5;
+}
+
+/* Wax seal effect */
+.wax-seal {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle at 30% 30%, #b76e79, #8b5d6a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Dancing Script', cursive;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    box-shadow: 
+        inset 0 0 10px rgba(0, 0, 0, 0.2),
+        0 3px 10px rgba(139, 93, 106, 0.3);
+    z-index: 10;
+    opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .popup-page h1 {
+        font-size: 32px;
+    }
+    
+    .final-page h1 {
+        font-size: 36px;
+    }
+    
+    .final-page h2 {
+        font-size: 20px;
+    }
+    
+    .final-message {
+        font-size: 22px;
+    }
+    
+    .poetry-content {
+        font-size: 16px;
+        padding: 20px 10px;
+    }
+    
+    .next-btn, .timer-btn {
+        padding: 12px 25px;
+        min-width: 180px;
+        font-size: 16px;
+    }
+    
+    .page {
+        padding: 15px;
+    }
+    
+    .floral-corner {
+        width: 120px;
+        height: 120px;
+        font-size: 18px;
+    }
+    
+    .floral-top-left, .floral-top-right {
+        top: -30px;
+    }
+    
+    .floral-bottom-left, .floral-bottom-right {
+        bottom: -30px;
+    }
+    
+    .heart {
+        font-size: 16px; /* Smaller hearts on mobile */
+    }
+}
+
+/* Print styles */
+@media print {
+    .hearts-bg, .floral-corner, .music-btn, .next-btn, .timer-btn {
+        display: none !important;
+    }
+    
+    .page {
+        position: relative;
+        display: block;
+        page-break-after: always;
+    }
+    
+    .page.active {
+        display: block;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .heart, .flower-click, .final-message {
+        animation: none !important;
+    }
+    
+    .next-btn:hover, .timer-btn:hover:not(:disabled) {
+        transform: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    body {
+        background-color: #fff;
+        color: #000;
+    }
+    
+    .poetry-content {
+        border: 2px solid #000;
+    }
+    
+    .next-btn, .timer-btn {
+        border: 2px solid #000;
+    }
+}
+
+/* ============================================
+   MOBILE OPTIMIZATION (9:16 Ratio Focus)
+   ============================================ */
+
+/* Base mobile optimization */
+@media (max-width: 768px) {
+    /* Optimize for 9:16 aspect ratio (typically mobile portrait) */
+    html, body {
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    body {
+        /* Lock to portrait orientation */
+        max-width: 100vw;
+        max-height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    
+    /* Adjust hearts for mobile */
+    .hearts-bg {
+        /* Limit hearts to safe area */
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) 
+                env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    
+    .heart {
+        font-size: 16px !important; /* Smaller for mobile */
+        animation-duration: 20s !important; /* Faster animation */
+        text-shadow: 
+            0 0 4px rgba(255, 182, 193, 0.7),
+            0 0 8px rgba(255, 105, 180, 0.5),
+            0 0 12px rgba(255, 20, 147, 0.3) !important;
+    }
+    
+    /* Adjust pages for mobile */
+    .page {
+        padding: 15px !important;
+        padding-top: max(15px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(15px, env(safe-area-inset-bottom)) !important;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Popup page mobile optimization */
+    .popup-page h1 {
+        font-size: 28px !important;
+        line-height: 1.3;
+        margin-bottom: 30px !important;
+        padding: 0 10px;
+    }
+    
+    /* Poetry content mobile optimization */
+    .poetry-content {
+        max-height: 60vh !important; /* Less height for mobile */
+        font-size: 16px !important;
+        line-height: 1.8 !important;
+        padding: 15px 10px !important;
+        margin: 5px !important;
+        border-width: 1px !important;
+    }
+    
+    .poetry-content p {
+        margin-bottom: 12px !important;
+        padding: 4px !important;
+    }
+    
+    /* Buttons mobile optimization */
+    .next-btn, .timer-btn {
+        min-width: 160px !important;
+        padding: 12px 20px !important;
+        font-size: 16px !important;
+        margin: 15px auto !important;
+        width: 80%;
+        max-width: 280px;
+    }
+    
+    /* Video mobile optimization */
+    video {
+        width: 95% !important;
+        max-width: 320px !important;
+        margin-bottom: 20px !important;
+        border-width: 5px !important;
+    }
+    
+    /* Image container mobile optimization */
+    .image-container {
+        max-width: 95% !important;
+        max-height: 60vh !important; /* Reduced for mobile */
+        margin: 15px 0 !important;
+        border-width: 8px !important;
+    }
+    
+    /* Final page mobile optimization */
+    .final-page h1 {
+        font-size: 32px !important;
+        line-height: 1.2;
+        margin-bottom: 20px !important;
+        padding: 0 10px;
+    }
+    
+    .final-page h2 {
+        font-size: 18px !important;
+        line-height: 1.4;
+        margin-bottom: 15px !important;
+        padding: 0 10px;
+    }
+    
+    .final-message {
+        font-size: 20px !important;
+        padding: 15px !important;
+        margin: 15px 10px 0 !important;
+    }
+    
+    /* Marwadi box mobile optimization */
+    .marwadi-box {
+        padding: 15px !important;
+        margin: 20px 0 !important;
+        font-size: 16px !important;
+    }
+    
+    /* Floral corners mobile adjustment */
+    .floral-corner {
+        width: 100px !important;
+        height: 100px !important;
+        font-size: 16px !important;
+        opacity: 0.3 !important;
+    }
+    
+    .floral-top-left, .floral-top-right {
+        top: -25px !important;
+    }
+    
+    .floral-bottom-left, .floral-bottom-right {
+        bottom: -25px !important;
+    }
+    
+    /* Page number adjustment */
+    .page-number {
+        font-size: 14px !important;
+        bottom: 15px !important;
+        right: 20px !important;
+    }
+    
+    /* Wax seal adjustment */
+    .wax-seal {
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 15px !important;
+        left: 15px !important;
+        font-size: 10px !important;
+    }
+    
+    /* Music button adjustment */
+    .music-btn {
+        top: 15px !important;
+        right: 15px !important;
+        padding: 8px 15px !important;
+        font-size: 14px !important;
+    }
+}
+
+/* ============================================
+   EXTREME MOBILE OPTIMIZATION (Small screens)
+   ============================================ */
+@media (max-width: 480px) and (max-height: 900px) {
+    /* For very small screens */
+    .popup-page h1 {
+        font-size: 24px !important;
+    }
+    
+    .final-page h1 {
+        font-size: 28px !important;
+    }
+    
+    .final-page h2 {
+        font-size: 16px !important;
+    }
+    
+    .poetry-content {
+        font-size: 15px !important;
+        max-height: 55vh !important;
+    }
+    
+    .next-btn, .timer-btn {
+        min-width: 140px !important;
+        padding: 10px 15px !important;
+    }
+    
+    /* Reduce hearts even more */
+    .heart {
+        font-size: 14px !important;
+    }
+    
+    /* Hide some decorative elements on very small screens */
+    .floral-corner {
+        opacity: 0.2 !important;
+    }
+}
+
+/* ============================================
+   LANDSCAPE MODE OPTIMIZATION
+   ============================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+    /* Landscape mode adjustments */
+    .page {
+        padding: 10px !important;
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+    
+    .poetry-content {
+        max-height: 80vh !important;
+        max-width: 60% !important;
+        margin-right: 20px !important;
+    }
+    
+    .next-btn, .timer-btn {
+        position: absolute !important;
+        bottom: 15px !important;
+        right: 15px !important;
+        margin: 0 !important;
+    }
+    
+    .popup-page h1, .final-page h1 {
+        font-size: 24px !important;
+    }
+    
+    /* Hide floral corners in landscape */
+    .floral-corner {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+    /* Touch device optimizations */
+    .next-btn, .timer-btn, .music-btn {
+        min-height: 44px; /* Apple's recommended touch target */
+    }
+    
+    .poetry-content p:hover {
+        /* Disable hover effects on touch devices */
+        background: transparent !important;
+        padding-left: 8px !important;
+    }
+    
+    /* Increase tap targets */
+    button {
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS FOR MOBILE
+   ============================================ */
+@media (max-width: 768px) {
+    /* Reduce animations for better performance */
+    .heart {
+        animation: floatHeartMobile 20s linear infinite !important;
+    }
+    
+    @keyframes floatHeartMobile {
+        0% {
+            transform: translateY(110vh) translateX(0);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.7;
+        }
+        90% {
+            opacity: 0.7;
+        }
+        100% {
+            transform: translateY(-100px) translateX(10px);
+            opacity: 0;
+        }
+    }
+    
+    /* Simplify glow effects for mobile */
+    .heart {
+        filter: drop-shadow(0 0 3px rgba(255, 105, 180, 0.5)) !important;
+    }
+    
+    /* Reduce shadow complexity */
+    .poetry-content, .image-container, .next-btn {
+        box-shadow: 0 3px 8px rgba(139, 93, 106, 0.15) !important;
+    }
+    
+    /* Reduce the number of hearts dynamically via JS */
+}
+
+/* ============================================
+   FOLDABLE PHONES & UNUSUAL ASPECT RATIOS
+   ============================================ */
+@media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 10/16) {
+    /* For tall/narrow phones */
+    .page {
+        padding: 12px !important;
+    }
+    
+    .poetry-content {
+        max-height: 65vh !important;
+    }
+    
+    .next-btn, .timer-btn {
+        margin-top: 10px !important;
+    }
+}
+
+/* ============================================
+   IOS SAFE AREA SUPPORT
+   ============================================ */
+@supports (padding: max(0px)) {
+    .page {
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
+    }
+}
