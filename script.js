@@ -1,7 +1,4 @@
-// script.js - COMPLETE WITH ALL POETRY CONTENT
-
-// PERFORMANCE OPTIMIZATIONS
-let isInitialized = false;
+// script.js - COMPLETE WITH ALL POETRY & FUNCTIONALITY
 
 // ============================================
 // COMPLETE ENGLISH POETRY CONTENT
@@ -223,26 +220,31 @@ const gujaratiPoetry = `<p>કેટલીક યાદો અવાજ નથ�
 </div>`;
 
 // ============================================
-// MOBILE OPTIMIZATION FUNCTIONS
+// GLOBAL VARIABLES
 // ============================================
+let isInitialized = false;
+let currentVideo = null;
+let imageSequenceStarted = false;
+let timer1Interval, timer2Interval;
+let bgmAudio = null;
+let isMusicPlaying = false;
 
-// MOBILE OPTIMIZATION - Adjust hearts for mobile
+// ============================================
+// MOBILE OPTIMIZATION
+// ============================================
 function optimizeForMobile() {
     const heartsContainer = document.getElementById('heartsBg');
     const isMobile = window.innerWidth <= 768;
     
-    // Clear existing hearts
     heartsContainer.innerHTML = '';
     
-    // Create appropriate number of hearts for device
-    const heartCount = isMobile ? 6 : 10; // Fewer hearts on mobile
+    const heartCount = isMobile ? 6 : 10;
     
     for (let i = 0; i < heartCount; i++) {
         const heart = document.createElement('div');
         heart.className = 'heart';
         heart.innerHTML = '❤️';
         
-        // Mobile-optimized positioning
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.fontSize = (isMobile ? 14 : 20) + 'px';
         heart.style.animationDuration = (isMobile ? 15 : 25) + Math.random() * 15 + 's';
@@ -253,22 +255,10 @@ function optimizeForMobile() {
 }
 
 // ============================================
-// GLOBAL VARIABLES
-// ============================================
-let currentVideo = null;
-let currentAudio = null;
-let imageSequenceStarted = false;
-let timer1Interval, timer2Interval;
-let bgmAudio = null;
-let isMusicPlaying = false;
-
-// ============================================
 // INITIALIZATION
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
     if (!isInitialized) {
-        console.log('Initializing Love Letter 2026...');
-        
         // Load poetry content dynamically
         document.querySelector('#page2 .poetry-content').innerHTML = englishPoetry;
         document.querySelector('#page3 .poetry-content').innerHTML = gujaratiPoetry;
@@ -285,13 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set up mobile optimization on resize
         window.addEventListener('resize', optimizeForMobile);
         
-        // Disable zoom on mobile for better experience
-        document.addEventListener('touchmove', function (e) {
-            if (e.scale !== 1) { e.preventDefault(); }
-        }, { passive: false });
-        
         isInitialized = true;
-        console.log('Initialization complete!');
     }
 });
 
@@ -299,8 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // SETUP EVENT LISTENERS
 // ============================================
 function setupEventListeners() {
-    console.log('Setting up event listeners...');
-    
     // Music control
     const musicBtn = document.getElementById('musicBtn');
     const musicIcon = document.getElementById('musicIcon');
@@ -321,7 +303,7 @@ function setupEventListeners() {
         }
     });
 
-    // Auto-play music on first click (only once)
+    // Auto-play music on first click
     document.addEventListener('click', function initMusic() {
         if (!isMusicPlaying) {
             bgMusic.play().then(() => {
@@ -337,22 +319,17 @@ function setupEventListeners() {
     document.addEventListener('click', function(e) {
         createFlowerClick(e.clientX, e.clientY);
     });
-    
-    console.log('Event listeners setup complete!');
 }
 
 // ============================================
 // PRELOAD ASSETS
 // ============================================
 function preloadAssets() {
-    console.log('Preloading assets...');
-    
     // Images
     const images = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
     images.forEach(img => {
         const image = new Image();
-        image.src = `images/${img}`;
-        image.onload = () => console.log(`Loaded: ${img}`);
+        image.src = img;
     });
     
     // BGM audio
@@ -360,17 +337,12 @@ function preloadAssets() {
     bgmAudio.loop = false;
     bgmAudio.volume = 0.7;
     bgmAudio.preload = 'metadata';
-    bgmAudio.oncanplaythrough = () => console.log('BGM ready to play');
-    
-    console.log('Asset preloading initiated!');
 }
 
 // ============================================
 // PAGE NAVIGATION
 // ============================================
 function showPage(pageId) {
-    console.log(`Navigating to page: ${pageId}`);
-    
     // Fade out current page
     const currentPage = document.querySelector('.page.active');
     if (currentPage) {
@@ -391,8 +363,6 @@ function showPage(pageId) {
         
         // Handle media
         handleMediaPlayback(pageId);
-        
-        console.log(`Page ${pageId} displayed successfully`);
     }, 300);
 }
 
@@ -400,8 +370,6 @@ function showPage(pageId) {
 // MEDIA PLAYBACK HANDLER
 // ============================================
 function handleMediaPlayback(pageId) {
-    console.log(`Handling media for page: ${pageId}`);
-    
     // Pause current media
     if (currentVideo) {
         currentVideo.pause();
@@ -413,9 +381,7 @@ function handleMediaPlayback(pageId) {
         setTimeout(() => {
             currentVideo = document.getElementById('video1');
             if (currentVideo) {
-                currentVideo.play().then(() => {
-                    console.log('Video 1 started playing');
-                }).catch(e => console.log('Video 1 autoplay prevented:', e));
+                currentVideo.play().catch(e => console.log('Video 1 autoplay prevented:', e));
             }
         }, 500);
     }
@@ -423,32 +389,27 @@ function handleMediaPlayback(pageId) {
         setTimeout(() => {
             currentVideo = document.getElementById('video2');
             if (currentVideo) {
-                currentVideo.play().then(() => {
-                    console.log('Video 2 started playing');
-                }).catch(e => console.log('Video 2 autoplay prevented:', e));
+                currentVideo.play().catch(e => console.log('Video 2 autoplay prevented:', e));
             }
         }, 500);
     }
     
-    // Handle image sequence pages
+    // Handle image sequence pages - UPDATED TIMERS
     if (pageId === 'page6') {
-        startTimer(9, 'timerBtn1', 'page7');
+        startTimer(9, 'timerBtn1', 'page7');  // CHANGED: 9 seconds
     }
     if (pageId === 'page7') {
-        startTimer(7.3, 'timerBtn2', 'page8');
+        startTimer(7, 'timerBtn2', 'page8');  // CHANGED: 7 seconds
     }
     if (pageId === 'page8') {
         waitForMusicCompletion();
     }
-    
-    console.log(`Media handling complete for page: ${pageId}`);
 }
 
 // ============================================
 // START IMAGE SEQUENCE
 // ============================================
 function startImageSequence() {
-    console.log('Starting image sequence...');
     imageSequenceStarted = true;
     
     // Pause all other media
@@ -461,26 +422,21 @@ function startImageSequence() {
     // Play BGM for images
     if (bgmAudio) {
         bgmAudio.currentTime = 0;
-        bgmAudio.play().then(() => {
-            console.log('BGM started playing for image sequence');
-        }).catch(e => console.log('BGM play prevented:', e));
+        bgmAudio.play().catch(e => console.log('BGM play prevented:', e));
     }
     
     // Go to first image page
     showPage('page6');
-    console.log('Image sequence started!');
 }
 
 // ============================================
-// TIMER FUNCTIONS
+// TIMER FUNCTIONS - UPDATED FOR 9s AND 7s
 // ============================================
 function startTimer(seconds, buttonId, nextPageId) {
-    console.log(`Starting timer: ${seconds}s for ${buttonId}`);
-    
     let timeLeft = seconds;
     const button = document.getElementById(buttonId);
     
-    if (seconds === 7.8) {
+    if (seconds === 7) {  // Changed from 7.8 to 7
         button.textContent = `Wait... (${seconds})`;
     } else {
         button.textContent = `Wait... (${Math.floor(timeLeft)})`;
@@ -489,7 +445,7 @@ function startTimer(seconds, buttonId, nextPageId) {
     const interval = setInterval(() => {
         timeLeft -= 0.1;
         
-        if (seconds === 7.8) {
+        if (seconds === 7) {  // Changed from 7.8 to 7
             button.textContent = `Wait... (${timeLeft.toFixed(1)})`;
         } else {
             button.textContent = `Wait... (${Math.ceil(timeLeft)})`;
@@ -497,15 +453,12 @@ function startTimer(seconds, buttonId, nextPageId) {
         
         if (timeLeft <= 0) {
             clearInterval(interval);
-            button.textContent = seconds === 7.8 ? 'Next' : 'Next';
+            button.textContent = seconds === 7 ? 'Next' : 'Next';  // Changed from 7.8 to 7
             button.disabled = false;
             
             button.onclick = function() {
-                console.log(`Timer finished, navigating to ${nextPageId}`);
                 showPage(nextPageId);
             };
-            
-            console.log(`Timer ${buttonId} finished!`);
         }
     }, 100);
     
@@ -520,8 +473,6 @@ function startTimer(seconds, buttonId, nextPageId) {
 // WAIT FOR MUSIC COMPLETION
 // ============================================
 function waitForMusicCompletion() {
-    console.log('Waiting for music completion...');
-    
     const button = document.getElementById('timerBtn3');
     
     if (bgmAudio) {
@@ -532,15 +483,12 @@ function waitForMusicCompletion() {
                 button.disabled = false;
                 
                 button.onclick = function() {
-                    console.log('Music completed, navigating to final page');
                     if (bgmAudio) {
                         bgmAudio.pause();
                         bgmAudio.currentTime = 0;
                     }
                     showPage('page9');
                 };
-                
-                console.log('Music completed, button enabled!');
             }
         }, 100);
     } else {
@@ -549,11 +497,8 @@ function waitForMusicCompletion() {
             button.disabled = false;
             
             button.onclick = function() {
-                console.log('Fallback timer completed, navigating to final page');
                 showPage('page9');
             };
-            
-            console.log('Fallback timer completed!');
         }, 36000);
     }
 }
@@ -564,7 +509,7 @@ function waitForMusicCompletion() {
 function createFlowerClick(x, y) {
     const flowers = ['🌸', '🌷', '💮', '🌺', '🏵️', '🌼', '❀', '✿'];
     
-    for (let i = 0; i < 2; i++) { // Reduced from 3 to 2 for performance
+    for (let i = 0; i < 2; i++) {
         const flower = document.createElement('div');
         flower.className = 'flower-click';
         flower.style.left = x + 'px';
@@ -588,17 +533,13 @@ function createFlowerClick(x, y) {
 // CLEANUP INTERVALS
 // ============================================
 window.addEventListener('beforeunload', function() {
-    console.log('Cleaning up intervals...');
     if (timer1Interval) clearInterval(timer1Interval);
     if (timer2Interval) clearInterval(timer2Interval);
 });
 
 // ============================================
-// MAKE FUNCTIONS AVAILABLE GLOBALLY
+// GLOBAL FUNCTIONS
 // ============================================
 window.showPage = showPage;
 window.startImageSequence = startImageSequence;
 window.optimizeForMobile = optimizeForMobile;
-
-
-console.log('script.js loaded successfully!');
