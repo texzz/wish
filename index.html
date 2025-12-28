@@ -1080,7 +1080,7 @@
         window.addEventListener('load', function() {
             ['image1.jpg', 'image2.jpg', 'image3.jpg'].forEach(img => {
                 const image = new Image();
-                image.src = `images/${img}`;
+                image.src = img;
             });
         });
         
@@ -1100,4 +1100,5 @@
 </body>
 
 </html>
+
 
