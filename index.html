@@ -753,7 +753,7 @@
     <div class="page video-page" id="page4">
         <div class="page-number">IV</div>
         <video id="video1" controls>
-            <source src="video/video1.mp4" type="video/mp4">
+            <source src="video1.mp4" type="video/mp4">
         </video>
         <button class="next-btn" onclick="showPage('page5')">Next</button>
     </div>
@@ -762,7 +762,7 @@
     <div class="page video-page" id="page5">
         <div class="page-number">V</div>
         <video id="video2" controls>
-            <source src="video/video2.mp4" type="video/mp4">
+            <source src="video2.mp4" type="video/mp4">
         </video>
         <button class="next-btn" onclick="startImageSequence()">Let's Feel</button>
     </div>
@@ -771,7 +771,7 @@
     <div class="page image-page" id="page6">
         <div class="page-number">VI</div>
         <div class="image-container">
-            <img src="images/image1.jpg" alt="Image 1" id="img1">
+            <img src="image1.jpg" alt="Image 1" id="img1">
         </div>
         <button class="timer-btn" id="timerBtn1" onclick="showPage('page7')" disabled>
             Wait... (9)
@@ -782,7 +782,7 @@
     <div class="page image-page" id="page7">
         <div class="page-number">VII</div>
         <div class="image-container">
-            <img src="images/image2.jpg" alt="Image 2" id="img2">
+            <img src="image2.jpg" alt="Image 2" id="img2">
         </div>
         <button class="timer-btn" id="timerBtn2" onclick="showPage('page8')" disabled>
             Wait... (7.1)
@@ -793,7 +793,7 @@
     <div class="page image-page" id="page8">
         <div class="page-number">VIII</div>
         <div class="image-container">
-            <img src="images/image3.jpg" alt="Image 3" id="img3">
+            <img src="image3.jpg" alt="Image 3" id="img3">
         </div>
         <button class="timer-btn" id="timerBtn3" onclick="showPage('page9')" disabled>
             Soo...
@@ -812,7 +812,7 @@
     
     <!-- Background Music -->
     <audio id="bgMusic" loop>
-        <source src="audio/Dhun%20Laagi.mp3" type="audio/mp3">
+        <source src="Dhun%20Laagi.mp3" type="audio/mp3">
     </audio>
     
     <script>
@@ -931,7 +931,7 @@
         // Play BGM for images
         function playBGM() {
             if (!bgmAudio) {
-                bgmAudio = new Audio('audio/Bgm.mp3');
+                bgmAudio = new Audio('Bgm.mp3');
                 bgmAudio.loop = false;
                 bgmAudio.volume = 0.6;
             }
@@ -1098,4 +1098,5 @@
         }
     </script>
 </body>
+
 </html>
